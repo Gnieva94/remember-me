@@ -19,24 +19,57 @@ body{
     display: flex;
     flex-flow: column wrap;
     position: relative;
+    
+    align-items: center;
 }
 li{
     list-style: none;
 }
-
+header{
+    padding: 2rem;
+}
+#sinItems{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+#conItems{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+#list{
+    width: 90%;
+    height: 100%;
+    background-color: var(--white);
+    display: flex;
+    flex-flow: row wrap;
+    border-radius: 16px;
+    padding: 2rem;
+}
 .card{
-    flex:1;
-    height: 100px;
+    /* flex:1; */
+    width: 250px;
+    height: 150px;
     border: 1px solid #000;
     border-radius: 16px;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     gap: 10px;
-    padding: 10px;
+    padding: 2rem;
+    margin: 10px auto;
     & img{
         width: 50px;
     }
+}
+.p-holder{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.5rem;
 }
 #popUp{
     width: 100%;
@@ -46,7 +79,6 @@ li{
     z-index: 99;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 #taskHolder{
     width: 300px;
@@ -61,6 +93,7 @@ li{
     align-items: center;
     padding: 1rem;
     gap: 1rem;
+    margin-top: 40vh;
 }
 #chocolateImg{
     width: 300px;
@@ -97,12 +130,17 @@ li{
 }
 
 #addTask{
-    position: absolute;
-    bottom: 20px;
+    position: fixed;
+    bottom: 25px;
     right: 20px;
     background-color: orangered;
     padding: 16px;
     border: none;
     border-radius: 32px;
     z-index: 1;
+}
+footer{
+    padding: 2rem;
+    position: relative;
+    bottom: 0;
 }
