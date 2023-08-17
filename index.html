@@ -13,16 +13,39 @@
     </div>
     <div id="conItems">
         <ul id="list">
-            <li class="card">
-                <img src="images/bike.svg" alt="Bike">
-                <p>Lavar la maleducada</p>
-            </li>
         </ul>
     </div>
     <div id="popUp" class="d-none">
         <form id="taskHolder">
             <input type="text" id="inputTask" placeholder="Escribí tu tarea:">
-            <button type="submit" id="taskBtnSubmit">Add</button>
+            <button type="button" id="imgBtnTask">Select img</button>
+            <div id="chocolateImg" class="d-none">
+                <ul id="imgList">
+                    <li>
+                        <img src="./images/bike.svg" alt="Bike">
+                    </li>
+                    <li>
+                        <img src="./images/bike.svg" alt="Bike">
+                    </li>
+                    <li>
+                        <img src="./images/bike.svg" alt="Bike">
+                    </li>
+                    <li>
+                        <img src="./images/bike.svg" alt="Bike">
+                    </li>
+                    <li>
+                        <img src="./images/bike.svg" alt="Bike">
+                    </li>
+                    <li>
+                        <img src="./images/bike.svg" alt="Bike">
+                    </li>
+                </ul>
+            </div>
+            <select name="timeSelect" id="timeSelect">
+                <option value="1">1 Dia</option>
+                <option value="2">2 Dia</option>
+            </select>
+            <button id="taskBtnSubmit">Add</button>
         </form>
     </div>
     <button type="button" id="addTask">Add</button>
