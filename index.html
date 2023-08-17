@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Remember-me App </title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
+    <h1>Remember-me App</h1>
+    <div id="sinItems">
+
+    </div>
+    <div id="conItems">
+        <ul id="list">
+            <li class="card">
+                <img src="images/bike.svg" alt="Bike">
+                <p>Lavar la maleducada</p>
+            </li>
+        </ul>
+    </div>
+    <div id="popUp" class="d-none">
+        <form id="taskHolder">
+            <input type="text" id="inputTask" placeholder="Escribí tu tarea:">
+            <button type="submit" id="taskBtnSubmit">Add</button>
+        </form>
+    </div>
+    <button type="button" id="addTask">Add</button>
     <script src="./js/main.js"></script>
 </body>
 </html>
