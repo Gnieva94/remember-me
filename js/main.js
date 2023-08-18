@@ -14,6 +14,7 @@ const conItems = document.querySelector('#conItems')
 let listTasks = []
 
 
+
 addTask.addEventListener('click',(e)=>{
     e.preventDefault()
     addTask.classList.toggle('d-none')
