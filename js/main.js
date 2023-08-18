@@ -11,6 +11,7 @@ const taskHolder = document.querySelector('#taskHolder')
 const taskBtnSubmit = document.querySelector('#taskBtnSubmit')
 const sinItems = document.querySelector('#sinItems')
 const conItems = document.querySelector('#conItems')
+let listTasks = []
 
 
 addTask.addEventListener('click',(e)=>{
@@ -56,11 +57,13 @@ taskBtnSubmit.addEventListener('click',(e)=>{
             <p>tiempo: ${task.time} ${task.time == 1 ? 'dia' : 'dias'}</p>
         </div>
     </li>`
+    listTasks.push(task)
     taskHolder.reset()
     selectedImage = './images/default.svg'
     popUp.classList.toggle('d-none')
     addTask.classList.toggle('d-none')
     sinItems.classList.add('d-none')
     conItems.classList.remove('d-none')
+    console.log(listTasks)
 })
 
