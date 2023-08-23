@@ -1,18 +1,17 @@
 let selectedImage = './images/default.svg'
-const addTask = document.querySelector('#addTask')
-const inputTask = document.querySelector('#inputTask')
-const timeSelect = document.querySelector('#timeSelect')
+const listPrincipal = document.querySelector('#listPrincipal')
+const list =  document.querySelector('#list')
 const popUp = document.querySelector('#popUp')
+const taskHolder = document.querySelector('#taskHolder')
+const inputTask = document.querySelector('#inputTask')
+const selectedImgPreview = document.querySelector('#selectedImgPreview')
 const imgBtnTask = document.querySelector('#imgBtnTask')
 const chocolateImg = document.querySelector('#chocolateImg')
 const imgList = document.querySelector('#imgList')
-const list =  document.querySelector('#list')
-const taskHolder = document.querySelector('#taskHolder')
+const timeSelect = document.querySelector('#timeSelect')
 const taskBtnSubmit = document.querySelector('#taskBtnSubmit')
-const sinItems = document.querySelector('#sinItems')
-const conItems = document.querySelector('#conItems')
-const selectedImgPreview = document.getElementById('selectedImgPreview')
-let listTasks = []
+const addTask = document.querySelector('#addTask')
+let listTasks = localStorage.getItem('listTasks') ? JSON.parse(localStorage.getItem('listTasks')) : []
 
 
 
@@ -22,6 +21,7 @@ addTask.addEventListener('click',(e)=>{
     popUp.classList.toggle('d-none')
     inputTask.focus()
 })
+
 popUp.addEventListener('click',(e)=>{
     e.preventDefault()
     if(!(e.target.id == 'taskHolder' || e.target.id == 'inputTask' || e.target.id == 'taskBtnSubmit' || e.target.id == 'imgBtnTask' || e.target.id == 'timeSelect' || e.target.id == 'chocolateImg' || e.target.localName == 'li' || e.target.localName == 'img'|| e.target.localName == 'ul' )){
@@ -52,22 +52,42 @@ taskBtnSubmit.addEventListener('click',(e)=>{
         desc: inputTask.value,
         time: timeSelect.value
     }
-    list.innerHTML += `
-    <li class="card">
-        <img src="${task.img}" alt="Bike">
-        <div class="p-holder">
-            <p>${task.desc}</p>
-            <p>tiempo: ${task.time} ${task.time == 1 ? 'dia' : 'dias'}</p>
-        </div>
-    </li>`
     listTasks.push(task)
+    localStorage.setItem('listTasks',JSON.stringify(listTasks))
+    list.innerHTML = getTasks();
     taskHolder.reset()
     selectedImage = './images/default.svg'
     selectedImgPreview.src = selectedImage
     popUp.classList.toggle('d-none')
     addTask.classList.toggle('d-none')
-    sinItems.classList.add('d-none')
-    conItems.classList.remove('d-none')
-    console.log(listTasks)
+    listPrincipal.classList.remove('d-none')
 })
+
+const deleteTask = (index) =>{
+    listTasks.splice(index,1)
+    localStorage.setItem('listTasks',JSON.stringify(listTasks))
+    list.innerHTML = getTasks();
+}
+
+const getTasks = () =>{
+    list.innerHTML = ''
+    if(listTasks.length == 0) return list.innerHTML = `<h2>No hay tareas</h2>`
+    else{
+        listTasks.forEach((task,index) =>{
+            list.innerHTML += `
+            <li class="card">
+                <button onclick="deleteTask(${index})">X</button>
+                <img src="${task.img}" alt="Bike">
+                <div class="p-holder">
+                    <p>${task.desc}</p>
+                    <p>tiempo: ${task.time} ${task.time == 1 ? 'dia' : 'dias'}</p>
+                </div>
+            </li>`
+        })
+        return list.innerHTML
+    } 
+}
+
+list.innerHTML = getTasks();
+
 
