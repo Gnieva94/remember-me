@@ -1,3 +1,4 @@
+let selectedImage = './images/default.svg'
 const addTask = document.querySelector('#addTask')
 const inputTask = document.querySelector('#inputTask')
 const timeSelect = document.querySelector('#timeSelect')
@@ -5,12 +6,12 @@ const popUp = document.querySelector('#popUp')
 const imgBtnTask = document.querySelector('#imgBtnTask')
 const chocolateImg = document.querySelector('#chocolateImg')
 const imgList = document.querySelector('#imgList')
-let selectedImage = './images/default.svg'
 const list =  document.querySelector('#list')
 const taskHolder = document.querySelector('#taskHolder')
 const taskBtnSubmit = document.querySelector('#taskBtnSubmit')
 const sinItems = document.querySelector('#sinItems')
 const conItems = document.querySelector('#conItems')
+const selectedImgPreview = document.getElementById('selectedImgPreview')
 let listTasks = []
 
 
@@ -36,6 +37,7 @@ imgList.childNodes.forEach(li =>{
     li.addEventListener('click',(e)=>{
         e.preventDefault()
         selectedImage = e.target.src
+        selectedImgPreview.src = e.target.src
         chocolateImg.classList.toggle('d-none')
     })
 })
@@ -61,6 +63,7 @@ taskBtnSubmit.addEventListener('click',(e)=>{
     listTasks.push(task)
     taskHolder.reset()
     selectedImage = './images/default.svg'
+    selectedImgPreview.src = selectedImage
     popUp.classList.toggle('d-none')
     addTask.classList.toggle('d-none')
     sinItems.classList.add('d-none')
