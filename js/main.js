@@ -9,6 +9,7 @@ const imgBtnTask = document.querySelector('#imgBtnTask')
 const chocolateImg = document.querySelector('#chocolateImg')
 const imgList = document.querySelector('#imgList')
 const timeSelect = document.querySelector('#timeSelect')
+const checkSelect = document.querySelector('#checkSelect')
 const taskBtnSubmit = document.querySelector('#taskBtnSubmit')
 const addTask = document.querySelector('#addTask')
 let listTasks = localStorage.getItem('listTasks') ? JSON.parse(localStorage.getItem('listTasks')) : []
@@ -20,11 +21,22 @@ addTask.addEventListener('click',(e)=>{
     addTask.classList.toggle('d-none')
     popUp.classList.toggle('d-none')
     inputTask.focus()
+    if(timeSelect.value == '1'){
+        checkSelect.innerHTML = `
+        <option value="hora">hora</option>
+        <option value="minuto">minuto</option>
+        `
+    }else{
+        checkSelect.innerHTML = `
+        <option value="horas">horas</option>
+        <option value="minutos">minutos</option>
+        `
+    }
 })
 
 popUp.addEventListener('click',(e)=>{
     e.preventDefault()
-    if(!(e.target.id == 'taskHolder' || e.target.id == 'inputTask' || e.target.id == 'taskBtnSubmit' || e.target.id == 'imgBtnTask' || e.target.id == 'timeSelect' || e.target.id == 'chocolateImg' || e.target.localName == 'li' || e.target.localName == 'img'|| e.target.localName == 'ul' )){
+    if(!(e.target.id == 'taskHolder' || e.target.id == 'inputTask' || e.target.id == 'taskBtnSubmit' || e.target.id == 'imgBtnTask' || e.target.id == 'timeSelect' || e.target.id == 'chocolateImg' || e.target.localName == 'li' || e.target.localName == 'img'|| e.target.localName == 'ul' || e.target.localName == 'select' || e.target.localName == 'label')){
         popUp.classList.toggle('d-none')
         addTask.classList.toggle('d-none')
     }
@@ -42,6 +54,21 @@ imgList.childNodes.forEach(li =>{
     })
 })
 
+timeSelect.addEventListener('change',(e)=>{
+    e.preventDefault()
+    if(e.target.value == '1'){
+        checkSelect.innerHTML = `
+        <option value="hora">hora</option>
+        <option value="minuto">minuto</option>
+        `
+    }else{
+        checkSelect.innerHTML = `
+        <option value="horas">horas</option>
+        <option value="minutos">minutos</option>
+        `
+    }
+})
+
 taskBtnSubmit.addEventListener('click',(e)=>{
     e.preventDefault()
     if(inputTask.value == ''){
@@ -50,7 +77,8 @@ taskBtnSubmit.addEventListener('click',(e)=>{
     let task = {
         img: selectedImage,
         desc: inputTask.value,
-        time: timeSelect.value
+        time: timeSelect.value,
+        check: checkSelect.value
     }
     listTasks.push(task)
     localStorage.setItem('listTasks',JSON.stringify(listTasks))
@@ -80,7 +108,7 @@ const getTasks = () =>{
                 <img src="${task.img}" alt="Bike">
                 <div class="p-holder">
                     <p>${task.desc}</p>
-                    <p>tiempo: ${task.time} ${task.time == 1 ? 'dia' : 'dias'}</p>
+                    <p>Tiempo: ${task.time} ${task.check}</p>
                 </div>
             </li>`
         })

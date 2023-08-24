@@ -5,7 +5,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 :root{
-    --white:#fff;
+    --violet: #4e085f; 
+    --white: #fff;
+    --lila: #ca84db;
+    --pink:#deaceb;
 }
 .d-none{
     display: none!important;
@@ -14,7 +17,7 @@ html{
     font-size: 62.5%;
 }
 body{
-    background-color: rebeccapurple;
+    background-color: var(--violet);
     min-height: 100vh;
     display: flex;
     flex-flow: column wrap;
@@ -27,6 +30,9 @@ li{
 }
 header{
     padding: 2rem;
+    & h1{
+        color: var(--white);
+    }
 }
 #listPrincipal{
     width: 100%;
@@ -73,6 +79,7 @@ header{
         border: none;
         border-radius: 16px;
         background-color: transparent;
+        cursor: pointer;
     }
     & button:hover{
         background-color: red;
@@ -105,6 +112,7 @@ header{
     background-color: var(--white);
     z-index: 100;
     border-radius: 1rem;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,6 +120,21 @@ header{
     padding: 1rem;
     gap: 1rem;
     margin-top: 40vh;
+    & input{
+        border-radius: 1rem;
+        border: 1px solid black;
+        padding: 0.5rem 1rem;
+    }
+    & button{
+        background-color: transparent;
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
+    & button:hover{
+        background-color: var(--pink);
+    }
 }
 #imgSelectHolder{
     display: flex;
@@ -121,7 +144,10 @@ header{
         width: 50px;
     }
     & button{
-        height: 25px;
+        background-color: transparent;
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: .5rem;
     }
 }
 #chocolateImg{
@@ -131,7 +157,11 @@ header{
     position: absolute;
     top: 110px;
     z-index: 101;
-    border-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
     padding: 1rem;
     & ul{
         width: 100%;
@@ -171,18 +201,33 @@ header{
 }
 
 #chocolateImg li:hover{
-    background-color: beige;
+    background-color: var(--pink);
+}
+
+#timeSelectHolder{
+    & label{
+        font-size: 1.3rem;
+    }
+    & select{
+        border-radius: 1rem;
+        border: 1px solid black;
+        padding: .5rem;
+    }
 }
 
 #addTask{
     position: fixed;
     bottom: 25px;
     right: 20px;
-    background-color: orangered;
+    background-color: var(--lila);
     padding: 16px;
     border: none;
     border-radius: 32px;
     z-index: 1;
+    cursor: pointer;
+}
+#addTask:hover{
+    background-color: var(--pink);
 }
 footer{
     padding: 2rem;
@@ -191,12 +236,14 @@ footer{
     & p{
         font-size: 1.3rem;
         font-weight: bold;
+        color: var(--white);
         & a{
-            color: black;
+            color: var(--white);
             text-decoration: none;
+            cursor: pointer;
         }
         & a:hover{
-            color: var(--white);
+            color: var(--lila);
         }
     }
 }

@@ -62,10 +62,15 @@
 
                 </ul>
             </div>
-            <select name="timeSelect" id="timeSelect">
-                <option value="1">1 Dia</option>
-                <option value="2">2 Dia</option>
-            </select>
+            <div id="timeSelectHolder">
+                <label for="timeSelect">En cuanto tiempo?:</label>
+                <select name="timeSelect" id="timeSelect">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                </select>
+                <select name="checkSelect" id="checkSelect">
+                </select>
+            </div>
             <button id="taskBtnSubmit">Add</button>
         </form>
     </div>
