@@ -36,7 +36,7 @@ addTask.addEventListener('click',(e)=>{
 
 popUp.addEventListener('click',(e)=>{
     e.preventDefault()
-    if(!(e.target.id == 'taskHolder' || e.target.id == 'inputTask' || e.target.id == 'taskBtnSubmit' || e.target.id == 'imgBtnTask' || e.target.id == 'timeSelect' || e.target.id == 'chocolateImg' || e.target.localName == 'li' || e.target.localName == 'img'|| e.target.localName == 'ul' || e.target.localName == 'select' || e.target.localName == 'label')){
+    if(!(e.target.id == 'taskHolder' || e.target.id == 'inputTask' || e.target.id == 'taskBtnSubmit' || e.target.id == 'imgBtnTask' || e.target.id == 'timeSelect' || e.target.id == 'chocolateImg' || e.target.localName == 'li' || e.target.localName == 'img'|| e.target.localName == 'ul' || e.target.localName == 'select' || e.target.localName == 'label' || e.target.id == 'timeSelectHolder')){
         popUp.classList.toggle('d-none')
         addTask.classList.toggle('d-none')
     }
