@@ -1,0 +1,20 @@
+{
+  "manifest_version": 1,
+  "name": "📱Tareapp",
+  "short_name": "TAPP",
+  "description": "Agrego tareas a mi lista",
+  "version": "1.0",
+  "theme_color": "#9013fe",
+  "background_color": "#9013fe",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "./images/icon.png",
+      "sizes": "225x225",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
