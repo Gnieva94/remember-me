@@ -1,8 +1,8 @@
 {
   "manifest_version": 1,
-  "name": "📱Tareapp",
-  "short_name": "TAPP",
-  "description": "Agrego tareas a mi lista",
+  "name": "📱Remind-me App",
+  "short_name": "RMAPP",
+  "description": "Lista de tareas con recordatorio en tiempo",
   "version": "1.0",
   "theme_color": "#9013fe",
   "background_color": "#9013fe",

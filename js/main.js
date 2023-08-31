@@ -1,4 +1,7 @@
-let selectedImage = './images/default.svg'
+const Image = {
+    selectedImage: './images/default.svg',
+    altImage: "Default"
+}
 const listPrincipal = document.querySelector('#listPrincipal')
 const list =  document.querySelector('#list')
 const popUp = document.querySelector('#popUp')
@@ -8,28 +11,28 @@ const selectedImgPreview = document.querySelector('#selectedImgPreview')
 const imgBtnTask = document.querySelector('#imgBtnTask')
 const chocolateImg = document.querySelector('#chocolateImg')
 const imgList = document.querySelector('#imgList')
+const numberSelect = document.querySelector('#numberSelect')
 const timeSelect = document.querySelector('#timeSelect')
-const checkSelect = document.querySelector('#checkSelect')
 const taskBtnSubmit = document.querySelector('#taskBtnSubmit')
 const addTask = document.querySelector('#addTask')
 let listTasks = localStorage.getItem('listTasks') ? JSON.parse(localStorage.getItem('listTasks')) : []
-
-
 
 addTask.addEventListener('click',(e)=>{
     e.preventDefault()
     addTask.classList.toggle('d-none')
     popUp.classList.toggle('d-none')
     inputTask.focus()
-    if(timeSelect.value == '1'){
-        checkSelect.innerHTML = `
-        <option value="hora">hora</option>
-        <option value="minuto">minuto</option>
+    if(numberSelect.value == '1'){
+        timeSelect.innerHTML = `
+        <option value="dia">Dia</option>
+        <option value="hora">Hora</option>
+        <option value="minuto">Minuto</option>
         `
     }else{
-        checkSelect.innerHTML = `
-        <option value="horas">horas</option>
-        <option value="minutos">minutos</option>
+        timeSelect.innerHTML = `
+        <option value="dias">Dias</option>
+        <option value="horas">Horas</option>
+        <option value="minutos">Minutos</option>
         `
     }
 })
@@ -39,32 +42,40 @@ popUp.addEventListener('click',(e)=>{
     if(!(e.target.id == 'taskHolder' || e.target.id == 'inputTask' || e.target.id == 'taskBtnSubmit' || e.target.id == 'imgBtnTask' || e.target.id == 'timeSelect' || e.target.id == 'chocolateImg' || e.target.localName == 'li' || e.target.localName == 'img'|| e.target.localName == 'ul' || e.target.localName == 'select' || e.target.localName == 'label' || e.target.id == 'timeSelectHolder')){
         popUp.classList.toggle('d-none')
         addTask.classList.toggle('d-none')
+        chocolateImg.classList.add('d-none')
+        selectedImgPreview.src = './images/default.svg'
+        inputTask.value = ''
     }
 })
+
 imgBtnTask.addEventListener('click', (e)=>{
     e.preventDefault()
     chocolateImg.classList.toggle('d-none')
 })
+
 imgList.childNodes.forEach(li =>{
     li.addEventListener('click',(e)=>{
         e.preventDefault()
-        selectedImage = e.target.src
+        Image.selectedImage = e.target.src
+        Image.altImage = e.target.alt
         selectedImgPreview.src = e.target.src
         chocolateImg.classList.toggle('d-none')
     })
 })
 
-timeSelect.addEventListener('change',(e)=>{
+numberSelect.addEventListener('change',(e)=>{
     e.preventDefault()
     if(e.target.value == '1'){
-        checkSelect.innerHTML = `
-        <option value="hora">hora</option>
-        <option value="minuto">minuto</option>
+        timeSelect.innerHTML = `
+        <option value="dia">Dia</option>
+        <option value="hora">Hora</option>
+        <option value="minuto">Minuto</option>
         `
     }else{
-        checkSelect.innerHTML = `
-        <option value="horas">horas</option>
-        <option value="minutos">minutos</option>
+        timeSelect.innerHTML = `
+        <option value="dias">Dias</option>
+        <option value="horas">Horas</option>
+        <option value="minutos">Minutos</option>
         `
     }
 })
@@ -75,17 +86,20 @@ taskBtnSubmit.addEventListener('click',(e)=>{
         return
     }
     let task = {
-        img: selectedImage,
+        img: Image.selectedImage,
+        alt: Image.altImage,
         desc: inputTask.value,
-        time: timeSelect.value,
-        check: checkSelect.value
+        createTime: Date.now(),
+        numberSelect: parseInt(numberSelect.value),
+        timeSelect: timeSelect.value
     }
     listTasks.push(task)
     localStorage.setItem('listTasks',JSON.stringify(listTasks))
     list.innerHTML = getTasks();
     taskHolder.reset()
-    selectedImage = './images/default.svg'
-    selectedImgPreview.src = selectedImage
+    Image.selectedImage = './images/default.svg'
+    Image.altImage = "Default"
+    selectedImgPreview.src = Image.selectedImage
     popUp.classList.toggle('d-none')
     addTask.classList.toggle('d-none')
     listPrincipal.classList.remove('d-none')
@@ -97,18 +111,27 @@ const deleteTask = (index) =>{
     list.innerHTML = getTasks();
 }
 
+const resetTask = (index) =>{
+    if(listTasks.length == 0) return
+    else{
+        listTasks[index].createTime = Date.now()
+        localStorage.setItem('listTasks',JSON.stringify(listTasks))
+        list.innerHTML = getTasks();
+    }
+}
+
 const getTasks = () =>{
     list.innerHTML = ''
     if(listTasks.length == 0) return list.innerHTML = `<h2>No hay tareas</h2>`
     else{
         listTasks.forEach((task,index) =>{
             list.innerHTML += `
-            <li class="card">
+            <li class="card ${timeDiff(task)}" onclick="resetTask(${index})">
                 <button onclick="deleteTask(${index})">X</button>
-                <img src="${task.img}" alt="Bike">
+                <img src="${task.img}" alt="${task.alt}">
                 <div class="p-holder">
                     <p>${task.desc}</p>
-                    <p>Tiempo: ${task.time} ${task.check}</p>
+                    <p>Tiempo: ${task.numberSelect} ${task.timeSelect}</p>
                 </div>
             </li>`
         })
@@ -116,6 +139,33 @@ const getTasks = () =>{
     } 
 }
 
+const timeDiff = (task) =>{
+    let tiempoFuturo = task.createTime
+    switch(task.timeSelect){
+        case 'dias':
+        case 'dia':
+            tiempoFuturo += task.numberSelect * (1000*60*60*24)
+            break;
+        case 'horas':
+        case 'hora':
+            tiempoFuturo += task.numberSelect * (1000*60*60)
+            break;
+        case 'minutos':
+        case 'minuto':
+            tiempoFuturo += task.numberSelect * (1000*60)
+            break;
+    }
+    let intervalo = tiempoFuturo - task.createTime
+    let ahoraHastaFuturo = tiempoFuturo - Date.now()
+    if(ahoraHastaFuturo < intervalo*0.3){
+        return "bg-red"
+    }
+    else if(ahoraHastaFuturo >= intervalo*0.3 && ahoraHastaFuturo < intervalo*0.7){
+        return "bg-yellow"
+    }
+    else if(ahoraHastaFuturo >= intervalo*0.7){
+        return "bg-green"
+    }
+}
+
 list.innerHTML = getTasks();
-
-

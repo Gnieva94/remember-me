@@ -13,6 +13,15 @@
 .d-none{
     display: none!important;
 }
+.bg-green{
+    background-color: #98D8AA;
+}
+.bg-yellow{
+    background-color: #F7D060;
+}
+.bg-red{
+    background-color: #FF6D60;
+}
 html{
     font-size: 62.5%;
 }
