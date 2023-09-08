@@ -107,6 +107,7 @@ taskBtnSubmit.addEventListener('click',(e)=>{
 
 const deleteTask = (index) =>{
     listTasks.splice(index,1)
+    console.log(listTasks)
     localStorage.setItem('listTasks',JSON.stringify(listTasks))
     list.innerHTML = getTasks();
 }
@@ -115,28 +116,10 @@ const resetTask = (index) =>{
     if(listTasks.length == 0) return
     else{
         listTasks[index].createTime = Date.now()
+        console.log(listTasks,"resetTask")
         localStorage.setItem('listTasks',JSON.stringify(listTasks))
         list.innerHTML = getTasks();
     }
-}
-
-const getTasks = () =>{
-    list.innerHTML = ''
-    if(listTasks.length == 0) return list.innerHTML = `<h2>No hay tareas</h2>`
-    else{
-        listTasks.forEach((task,index) =>{
-            list.innerHTML += `
-            <li class="card ${timeDiff(task)}" onclick="resetTask(${index})">
-                <button onclick="deleteTask(${index})">X</button>
-                <img src="${task.img}" alt="${task.alt}">
-                <div class="p-holder">
-                    <p>${task.desc}</p>
-                    <p>Tiempo: ${task.numberSelect} ${task.timeSelect}</p>
-                </div>
-            </li>`
-        })
-        return list.innerHTML
-    } 
 }
 
 const timeDiff = (task) =>{
@@ -157,6 +140,7 @@ const timeDiff = (task) =>{
     }
     let intervalo = tiempoFuturo - task.createTime
     let ahoraHastaFuturo = tiempoFuturo - Date.now()
+    //console.log(task.createTime, "timediff")
     if(ahoraHastaFuturo < intervalo*0.3){
         return "bg-red"
     }
@@ -166,6 +150,27 @@ const timeDiff = (task) =>{
     else if(ahoraHastaFuturo >= intervalo*0.7){
         return "bg-green"
     }
+}
+
+const getTasks = () =>{
+    list.innerHTML = ''
+    if(listTasks.length == 0) return list.innerHTML = `<h2>No hay tareas</h2>`
+    else{
+        listTasks.forEach((task,index) =>{
+            console.log(task.createTime, "getTasks")
+            list.innerHTML += `
+            <li class="card ${timeDiff(task)}" >
+                <button type="button" onclick="resetTask(${index})">⏱</button>
+                <button type="button" onclick="deleteTask(${index})">❌</button>
+                <img src="${task.img}" alt="${task.alt}">
+                <div class="p-holder">
+                    <p>${task.desc}</p>
+                    <p>Tiempo: ${task.numberSelect} ${task.timeSelect}</p>
+                </div>
+            </li>`
+        })
+        return list.innerHTML
+    } 
 }
 
 list.innerHTML = getTasks();

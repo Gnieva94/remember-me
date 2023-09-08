@@ -90,6 +90,12 @@ header{
         background-color: transparent;
         cursor: pointer;
     }
+    & button:nth-child(1){
+        left:2px
+    }
+    & button:nth-child(1):hover{
+        background-color: grey;
+    }
     & button:hover{
         background-color: red;
         color: var(--white);
