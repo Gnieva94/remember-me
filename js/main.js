@@ -107,7 +107,6 @@ taskBtnSubmit.addEventListener('click',(e)=>{
 
 const deleteTask = (index) =>{
     listTasks.splice(index,1)
-    console.log(listTasks)
     localStorage.setItem('listTasks',JSON.stringify(listTasks))
     list.innerHTML = getTasks();
 }
@@ -116,7 +115,6 @@ const resetTask = (index) =>{
     if(listTasks.length == 0) return
     else{
         listTasks[index].createTime = Date.now()
-        console.log(listTasks,"resetTask")
         localStorage.setItem('listTasks',JSON.stringify(listTasks))
         list.innerHTML = getTasks();
     }
@@ -140,7 +138,6 @@ const timeDiff = (task) =>{
     }
     let intervalo = tiempoFuturo - task.createTime
     let ahoraHastaFuturo = tiempoFuturo - Date.now()
-    //console.log(task.createTime, "timediff")
     if(ahoraHastaFuturo < intervalo*0.3){
         return "bg-red"
     }
@@ -157,7 +154,6 @@ const getTasks = () =>{
     if(listTasks.length == 0) return list.innerHTML = `<h2>No hay tareas</h2>`
     else{
         listTasks.forEach((task,index) =>{
-            console.log(task.createTime, "getTasks")
             list.innerHTML += `
             <li class="card ${timeDiff(task)}" >
                 <button type="button" onclick="resetTask(${index})">⏱</button>
